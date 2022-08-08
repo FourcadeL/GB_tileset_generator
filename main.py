@@ -1,8 +1,19 @@
 # main app file
 
+# main application arguments :
+# -i : input | the image input (must be a png, dimentions must be multiple of 8)
+# -o : output | the file where the tilset should be saved
+# -m : tilemap-output | generate a tilemap of the input picture with indexes from the generated tileset
+
+import argparse
 
 def main():
-    print("TODO : j'ai pas encore codé l'appli ^^")
+    parser = argparse.ArgumentParser(description="Generate tilsets from pictures")
+    parser.add_argument("-i", "--input", help="input file (must be png)")
+    parser.add_argument("-o", "--output", help="output file")
+    parser.add_argument("-m", "--tilemap-output", help="generate a tilemap")
+    args = parser.parse_args()
+
     return
 
 
