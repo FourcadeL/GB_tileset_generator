@@ -1,11 +1,32 @@
 # class object tile
 
 from PIL import Image
+import numpy as np
+
+from exceptions import *
 
 
 class Tile:
-    def __init__(self, palette):
+    # Matrix of indexed colors
+    pixels = None
+
+    # used palette for the tile
+    palette = None
+
+
+    def __init__(self, palette, data=None):
         self.palette = palette
+        if data:
+            if len(data) != 8*8:
+                raise DataException("Data should describe 8*8 pixels")
+            palette_colors = self.palette.colors()
+            for i, c in enumerate(data):
+                if not c in palette_colors:
+                    raise DataException("Unmapped color in given data")
+                self.pixels = np.array(data, np.int32)
+                self.pixels.reshape(8, 8)
+        else:
+            self.pixels = np.zeros((8, 8), np.int32)
         return
 
 
@@ -30,6 +51,10 @@ class Palette:
         key = len(self.dict_colors)
         self.dict_colors[key] = color
         return key
+
+    # return the list of available colors (indexes)
+    def colors(self):
+        return list(self.dict_colors.keys())
 
 
 class Color:
@@ -59,6 +84,7 @@ def test():
     im = Image.open("test_logo.png")
     im = im.convert("RGBA")
     print("testing")
+    ti = Tile(9)
     return
 
 if __name__ == "__main__":
