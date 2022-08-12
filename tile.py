@@ -5,6 +5,8 @@ import numpy as np
 
 from exceptions import *
 
+# define if tile equality  must test for flip versions of the tile
+FLIP_EQUALITY = True
 
 class Tile:
     # Matrix of indexed colors
@@ -29,6 +31,12 @@ class Tile:
             self.pixels = np.zeros((8, 8), np.int32)
         return
 
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            # TODO : test for palette, array values and flip
+            return self.__dict__ == other.__dict__
+        else:
+            return False
 
     def flip_h(self):
         self.pixels = np.flip(self.pixels, axis=1)
