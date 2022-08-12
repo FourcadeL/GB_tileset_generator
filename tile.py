@@ -30,6 +30,15 @@ class Tile:
         return
 
 
+    def flip_h(self):
+        self.pixels = np.flip(self.pixels, axis=1)
+        return
+
+    def flip_v(self):
+        self.pixels = np.flip(self.pixels, axis=0)
+        return
+
+
 
 
 
