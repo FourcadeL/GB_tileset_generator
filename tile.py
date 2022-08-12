@@ -20,11 +20,11 @@ class Tile:
             if len(data) != 8*8:
                 raise DataException("Data should describe 8*8 pixels")
             palette_colors = self.palette.colors()
-            for i, c in enumerate(data):
+            for c in data:
                 if not c in palette_colors:
                     raise DataException("Unmapped color in given data")
-                self.pixels = np.array(data, np.int32)
-                self.pixels.reshape(8, 8)
+            pixels = np.array(data, np.int32)
+            self.pixels = pixels.reshape(8, 8)
         else:
             self.pixels = np.zeros((8, 8), np.int32)
         return
@@ -84,7 +84,11 @@ def test():
     im = Image.open("test_logo.png")
     im = im.convert("RGBA")
     print("testing")
-    ti = Tile(9)
+    pa = Palette()
+    for i in range(8*8):
+        pa.add_color(Color((i, 2*i, 3, 4)))
+    ti = Tile(pa, pa.colors())
+    print("Done")
     return
 
 if __name__ == "__main__":
