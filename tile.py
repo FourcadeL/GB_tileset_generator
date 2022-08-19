@@ -37,6 +37,9 @@ class Tile:
         else:
             return False
 
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def flip_h(self):
         self.pixels = np.flip(self.pixels, axis=1)
         return self
