@@ -6,6 +6,18 @@
 # -m : tilemap-output | generate a tilemap of the input picture with indexes from the generated tileset
 
 import argparse
+from PIL import Image
+
+#TODO tile creation from image
+def generate_tiles_from_image(image):
+    return
+
+
+def test():
+    im = Image.open("test_logo.png")
+    im = im.convert("RGBA")
+    print("testing")
+
 
 def main():
     parser = argparse.ArgumentParser(description="Generate tilsets from pictures")
