@@ -88,9 +88,9 @@ class Palette:
         self.dict_colors = {}
         return
 
-    # adds a new color and return its index
-    # (if already in palette, return the index)
     def add_color(self, color):
+        """adds a new color and return its index
+        (if already in palette, return the index)"""
         for k, c in self.dict_colors.items():
             if c == color:
                 return k
@@ -98,9 +98,25 @@ class Palette:
         self.dict_colors[key] = color
         return key
 
-    # return the list of available colors (indexes)
     def colors(self):
+        """return the list of available colors (indexes)"""
         return list(self.dict_colors.keys())
+
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            selfcolors = list(self.dict_colors.values())
+            othercolors = list(self.dict_colors.values())
+            if len(selfcolors) == len(othercolors):
+                for e in selfcolors:
+                    if not e in othercolors:
+                        return False
+                return True
+            return False
+        else:
+            return False
+
+
 
 
 class Color:
@@ -114,8 +130,8 @@ class Color:
         self.trans = (tmp < 255)
         return
 
-    # impléments member equality
     def __eq__(self, other):
+        """impléments member equality"""
         if isinstance(other, self.__class__):
             return self.__dict__ == other.__dict__
         else:
