@@ -48,6 +48,13 @@ class Tile:
         self.pixels = np.flip(self.pixels, axis=0)
         return self
 
+    def set_palette(self, palette):
+        minindex, maxindex = self._palette_range()
+        if len(palette.colors()) > maxindex + 1:
+            print("can't change palette (correspondance too small)")
+            return
+        self.palette = palette
+
     ###### méthodes privées ######
     def _equal_with_remapping(self, pixels1, pixels2):
         """retourne true si les deux tableaux d'indexes sont les mêmes"""
@@ -78,6 +85,19 @@ class Tile:
                 test_equality(pixels1, np.flip(pixels2, axis=1)) or\
                 test_equality(pixels1, np.flip(np.flip(pixels2, axis=0), axis=1))
         return test_equality(pixels1, pixels2)
+
+
+    def _palette_range(self):
+        """return the minimum and maximum indexes used by the tile"""
+        minindex, maxindex = TILE_SIZE * TILE_SIZE, 0
+        for i in range(TILE_SIZE):
+            for j in range(TILE_SIZE):
+                pix = self.pixels[i][j]
+                if pix < minindex:
+                    minindex = pix
+                if pix > maxindex:
+                    maxindex = pix
+        return minindex, maxindex
     ##############################
 
 
