@@ -55,6 +55,18 @@ class Tile:
             return
         self.palette = palette
 
+    def get_pixel(self, i, j):
+        if (i >= TILE_SIZE or j >= TILE_SIZE):
+            print("error - out of index")
+        return self.palette.get_color(self.pixels[i][j])
+
+    def show(self):
+        ret = Image.new(mode="RGBA", size=(TILE_SIZE, TILE_SIZE))
+        for i in range(TILE_SIZE):
+            for j in range(TILE_SIZE):
+                ret.putpixel((i, j), self.get_pixel(i, j).get_as_rgba())
+        ret.show()
+
     ###### méthodes privées ######
     def _equal_with_remapping(self, pixels1, pixels2):
         """retourne true si les deux tableaux d'indexes sont les mêmes"""
@@ -121,6 +133,11 @@ class Palette:
         self.dict_colors[key] = color
         return key
 
+    def get_color(self, index):
+        if index in self.dict_colors:
+            return self.dict_colors[index]
+        return None
+
     def colors(self):
         """return the list of available colors (indexes)"""
         return list(self.dict_colors.keys())
@@ -153,6 +170,9 @@ class Color:
         self.trans = (tmp < 255)
         return
 
+    def get_as_rgba(self):
+        return (self.r, self.g, self.b, 0 if self.trans else 255)
+
     def __eq__(self, other):
         """impléments member equality"""
         if isinstance(other, self.__class__):
@@ -171,11 +191,13 @@ def test():
     print("testing")
     pa = Palette()
     for i in range(8*8):
-        pa.add_color(Color((i, 2*i, 3, 4)))
+        pa.add_color(Color((i, 2*i, 3, 255)))
     ti1 = Tile(pa, pa.colors())
     ti2 = Tile(pa, pa.colors())
     ti2.flip_h().flip_v()
     print(ti1 == ti2)
+    print(ti1.get_pixel(3, 5).get_as_rgba())
+    ti1.show()
     print("Done")
     return
 
