@@ -7,9 +7,18 @@
 
 import argparse
 from PIL import Image
+from tile.py import Tile
 
 #TODO tile creation from image
 def generate_tiles_from_image(image):
+    # slice image in multiple 8 by 8 squares
+    width, height = image.size
+    assert width%8 == 0
+    assert height%8 == 0
+    for i in range(width//8):
+        for j in range(height//8):
+            #TODO create tile
+            t = Tile()
     return
 
 
@@ -17,6 +26,8 @@ def test():
     im = Image.open("test_logo.png")
     im = im.convert("RGBA")
     print("testing")
+    generate_tiles_from_image(im)
+    print("done")
 
 
 def main():
@@ -30,4 +41,5 @@ def main():
 
 
 if __name__ == "__main__":
+    test()
     main()

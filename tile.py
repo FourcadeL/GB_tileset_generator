@@ -8,7 +8,30 @@ from exceptions import *
 FLIP_EQUALITY = False # define if tile equality  must test for flip versions of the tile
 TILE_SIZE = 8 # number of pixels by tiles (tiles are always squares)
 
+class MetaTile:
+    """Class for creation of meta-tiles
+    - composed of multiple tiles mosaic
+    - all made from the same palette
+    - size must be a multiple of TILE_SIZE"""
+
+    # Matrix of tiles
+    tiles = None
+
+    # Used palette
+    palette = None
+
+    def __init__(self, source_png):
+        """initialize a meta-tile"""
+        #TODO
+        return
+
+
+
+
+
 class Tile:
+    """Class containing the data for a single unit tile
+    (i.e. a square of size TILE_SIZE)"""
     # Matrix of indexed colors
     pixels = None
 
