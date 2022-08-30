@@ -20,9 +20,18 @@ class MetaTile:
     # Used palette
     palette = None
 
-    def __init__(self, source_png):
+    def __init__(self, source_png, width=8, height=8):
         """initialize a meta-tile"""
         #TODO
+        source_width, source_height = source_png.size
+        for i in range(width//TILE_SIZE):
+            for j in range(height//TILE_SIZE):
+                colors = []
+                #CREATE PALETTE from color list
+                for k in range(TILE_SIZE):
+                    for l in range(TILE_SIZE):
+                        c = source_png.getpixel(i*TILE_SIZE + k, j*TILE_SIZE + l)
+                #CREATE TILE FROM image and palette
         return
 
 

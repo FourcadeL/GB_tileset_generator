@@ -7,7 +7,8 @@
 
 import argparse
 from PIL import Image
-from tile.py import Tile
+from tile import Tile
+from tile import MetaTile
 
 #TODO tile creation from image
 def generate_tiles_from_image(image):
@@ -17,8 +18,9 @@ def generate_tiles_from_image(image):
     assert height%8 == 0
     for i in range(width//8):
         for j in range(height//8):
+            slice = image.crop(i*8, j*8, (i+1)*8, (j+1)*8)
             #TODO create tile
-            t = Tile()
+            t = MetaTile(slice)
     return
 
 
