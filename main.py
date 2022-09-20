@@ -7,11 +7,12 @@
 
 import argparse
 from PIL import Image
-from tile import Tile
+# from tile import Tile
 from tile import MetaTile
 
 #TODO tile creation from image
 def generate_tiles_from_image(image):
+    """generate a tileset from an image"""
     # slice image in multiple 8 by 8 squares
     width, height = image.size
     assert width%8 == 0
@@ -25,7 +26,9 @@ def generate_tiles_from_image(image):
 
 
 def test():
-    im = Image.open("test_logo.png")
+    """test function"""
+    # im = Image.open("test_logo.png")
+    im = Image.open("test.png")
     im = im.convert("RGBA")
     print("testing")
     generate_tiles_from_image(im)
@@ -33,6 +36,7 @@ def test():
 
 
 def main():
+    """main function"""
     parser = argparse.ArgumentParser(description="Generate tilsets from pictures")
     parser.add_argument("-i", "--input", help="input file (must be png)")
     parser.add_argument("-o", "--output", help="output file")

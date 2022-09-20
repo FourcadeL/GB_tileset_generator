@@ -73,26 +73,33 @@ class Tile:
         return not self.__eq__(other)
 
     def flip_h(self):
+        """flip the tile horizontally"""
         self.pixels = np.flip(self.pixels, axis=1)
         return self
 
     def flip_v(self):
+        """flip the tile vertically"""
         self.pixels = np.flip(self.pixels, axis=0)
         return self
 
     def set_palette(self, palette):
+        """change tile palette"""
         minindex, maxindex = self._palette_range()
+        if minindex > 0:
+            print("Warning : palette offset")
         if len(palette.colors()) > maxindex + 1:
             print("can't change palette (correspondance too small)")
             return
         self.palette = palette
 
     def get_pixel(self, i, j):
+        """get color at location in tile"""
         if (i >= TILE_SIZE or j >= TILE_SIZE):
             print("error - out of index")
         return self.palette.get_color(self.pixels[i][j])
 
     def show(self):
+        """show the tile"""
         ret = Image.new(mode="RGBA", size=(TILE_SIZE, TILE_SIZE))
         for i in range(TILE_SIZE):
             for j in range(TILE_SIZE):
@@ -166,6 +173,7 @@ class Palette:
         return key
 
     def get_color(self, index):
+        """returns the color correponding to the palette index"""
         if index in self.dict_colors:
             return self.dict_colors[index]
         return None
